@@ -3,7 +3,7 @@
 
     <groupId>com.github.eirslett</groupId>
     <artifactId>frontend-plugins</artifactId>
-    <version>1.13.0-biss</version>
+    <version>1.13.1-biss-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -32,7 +32,7 @@
     <scm>
         <url>https://vcs.biss-net.com/mko/frontend-maven-plugin</url>
         <developerConnection>scm:git:https://vcs.biss-net.com/mko/frontend-maven-plugin.git</developerConnection>
-      <tag>frontend-plugins-1.13.0-biss</tag>
+      <tag>HEAD</tag>
   </scm>
 
     <developers>
