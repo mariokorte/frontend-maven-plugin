@@ -11,11 +11,11 @@ public final class FrontendPluginFactory {
     private final File installDirectory;
     private final CacheResolver cacheResolver;
 
-    public FrontendPluginFactory(File workingDirectory, File installDirectory){
+    public FrontendPluginFactory(File workingDirectory, File installDirectory) {
         this(workingDirectory, installDirectory, getDefaultCacheResolver(installDirectory));
     }
 
-    public FrontendPluginFactory(File workingDirectory, File installDirectory, CacheResolver cacheResolver){
+    public FrontendPluginFactory(File workingDirectory, File installDirectory, CacheResolver cacheResolver) {
         this.workingDirectory = workingDirectory;
         this.installDirectory = installDirectory;
         this.cacheResolver = cacheResolver;
@@ -61,7 +61,7 @@ public final class FrontendPluginFactory {
         return new DefaultYarnRunner(new InstallYarnExecutorConfig(getInstallConfig()), proxy, npmRegistryURL);
     }
 
-    public GruntRunner getGruntRunner(){
+    public GruntRunner getGruntRunner() {
         return new DefaultGruntRunner(getExecutorConfig());
     }
 
@@ -69,15 +69,23 @@ public final class FrontendPluginFactory {
         return new DefaultEmberRunner(getExecutorConfig());
     }
 
-    public KarmaRunner getKarmaRunner(){
+    public KarmaRunner getKarmaRunner() {
         return new DefaultKarmaRunner(getExecutorConfig());
     }
 
-    public GulpRunner getGulpRunner(){
+    public GulpRunner getGulpRunner() {
         return new DefaultGulpRunner(getExecutorConfig());
     }
 
-    public WebpackRunner getWebpackRunner(){
+    public RollupRunner getRollupRunner() {
+        return new DefaultRollupRunner(getExecutorConfig());
+    }
+
+    public SassRunner getSassRunner() {
+        return new DefaultSassRunner(getExecutorConfig());
+    }
+
+    public WebpackRunner getWebpackRunner() {
         return new DefaultWebpackRunner(getExecutorConfig());
     }
 

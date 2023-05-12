@@ -3,7 +3,7 @@
 
     <groupId>com.github.eirslett</groupId>
     <artifactId>frontend-plugins</artifactId>
-    <version>1.12.2-SNAPSHOT</version>
+    <version>1.13.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -30,10 +30,8 @@
     </licenses>
 
     <scm>
-        <url>https://github.com/eirslett/frontend-maven-plugin</url>
-        <connection>scm:git:https://github.com/eirslett/frontend-maven-plugin.git</connection>
-        <developerConnection>scm:git:git@github.com:eirslett/frontend-maven-plugin.git</developerConnection>
-      <tag>HEAD</tag>
+        <url>https://vcs.biss-net.com/mko/frontend-maven-plugin</url>
+        <developerConnection>scm:git:https://vcs.biss-net.com/mko/frontend-maven-plugin.git</developerConnection>
     </scm>
 
     <developers>
@@ -42,23 +40,17 @@
             <name>Eirik Sletteberg</name>
             <email>eiriksletteberg@gmail.com</email>
         </developer>
+        <developer>
+            <id>mko</id>
+            <name>Mario Korte</name>
+            <email>mko@biss-net.com</email>
+        </developer>
     </developers>
 
     <modules>
         <module>frontend-plugin-core</module>
         <module>frontend-maven-plugin</module>
     </modules>
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
 
     <build>
         <plugins>
@@ -147,39 +139,16 @@
         </pluginManagement>
     </build>
 
-    <profiles>
-        <profile>
-            <id>release</id>
-            <properties>
-                <gpg.executable>gpg</gpg.executable>
-                <gpg.keyname>${env.GPG_KEYNAME}</gpg.keyname>
-                <gpg.passphrase>${env.GPG_PASSPHRASE}</gpg.passphrase>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>3.0.1</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <!-- Prevent `gpg` from using pinentry programs -->
-                            <gpgArguments>
-                                <arg>--pinentry-mode</arg>
-                                <arg>loopback</arg>
-                            </gpgArguments>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>build01-snapshots</id>
+            <name>BISS Snapshot Repository</name>
+            <url>http://build01.biss-net.com:8081/repository/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>build01-releases</id>
+            <name>BISS Releases Repository</name>
+            <url>http://build01.biss-net.com:8081/repository/releases/</url>
+        </repository>
+    </distributionManagement>
 </project>

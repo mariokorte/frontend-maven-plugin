@@ -27,6 +27,8 @@
                     <goal>bower</goal>
                     <goal>jspm</goal>
                     <goal>ember</goal>
+                    <goal>rollup</goal>
+                    <goal>sass</goal>
                     <goal>webpack</goal>
                 </goals>
             </pluginExecutionFilter>
