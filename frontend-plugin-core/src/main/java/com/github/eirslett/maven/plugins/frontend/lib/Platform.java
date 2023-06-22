@@ -1,6 +1,7 @@
 package com.github.eirslett.maven.plugins.frontend.lib;
 
 import java.io.File;
+import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -78,24 +79,40 @@ class Platform {
     private final Architecture architecture;
     private final String classifier;
 
+    public Platform() {
+        this(OS.guess(), Architecture.guess());
+    }
+
     public Platform(OS os, Architecture architecture) {
         this("https://nodejs.org/dist/", os, architecture, null);
     }
 
-    public Platform(String nodeDownloadRoot, OS os, Architecture architecture, String classifier) {
+    public Platform(
+        String nodeDownloadRoot,
+        OS os,
+        Architecture architecture,
+        String classifier
+    ) {
         this.nodeDownloadRoot = nodeDownloadRoot;
         this.os = os;
         this.architecture = architecture;
         this.classifier = classifier;
     }
 
-    public static Platform guess(){
-        OS os = OS.guess();
-        Architecture architecture = Architecture.guess();
+    public static Platform guess() {
+        return Platform.guess(OS.guess(), Architecture.guess(), Platform::CHECK_FOR_ALPINE);
+    }
+
+    // Default implementation
+    public static Boolean CHECK_FOR_ALPINE() {
+        return new File("/etc/alpine-release").exists();
+    }
+
+    public static Platform guess(OS os, Architecture architecture, Supplier<Boolean> checkForAlpine){
         // The default libc is glibc, but Alpine uses musl. When not default, the nodejs download
         // (and path within it) needs a classifier in the suffix (ex. -musl).
         // We know Alpine is in use if the release file exists, and this is the simplest check.
-        if (os == OS.Linux && new File("/etc/alpine-release").exists()) {
+        if (os == OS.Linux && checkForAlpine.get()) {
             return new Platform(
                 // Currently, musl is Experimental. The download root can be overridden with config
                 // if this changes and there's not been an update to this project, yet.
