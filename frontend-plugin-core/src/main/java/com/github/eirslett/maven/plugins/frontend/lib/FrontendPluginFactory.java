@@ -92,6 +92,10 @@ public final class FrontendPluginFactory {
         return new DefaultSassRunner(getExecutorConfig());
     }
 
+    public NodeRunner getNodeRunner() {
+        return new DefaultNodeRunner(getExecutorConfig());
+    }
+
     public WebpackRunner getWebpackRunner() {
         return new DefaultWebpackRunner(getExecutorConfig());
     }

@@ -18,12 +18,12 @@ abstract class NodeTaskExecutor {
     private static final String DS = "//";
     private static final String AT = "@";
 
-    private final Logger logger;
-    private final String taskName;
+    protected final Logger logger;
+    protected final String taskName;
     private String taskLocation;
     private final ArgumentsParser argumentsParser;
-    private final NodeExecutorConfig config;
-    private final Map<String, String> proxy;
+    protected final NodeExecutorConfig config;
+    protected final Map<String, String> proxy;
 
     public NodeTaskExecutor(NodeExecutorConfig config, String taskLocation) {
         this(config, taskLocation, Collections.<String>emptyList());
@@ -55,7 +55,7 @@ abstract class NodeTaskExecutor {
     }
 
 
-    public final void execute(String args, Map<String, String> environment) throws TaskRunnerException {
+    public void execute(String args, Map<String, String> environment) throws TaskRunnerException {
         final String absoluteTaskLocation = getAbsoluteTaskLocation();
         final List<String> arguments = getArguments(args);
         logger.info("Running " + taskToString(taskName, arguments) + " in " + config.getWorkingDirectory());
@@ -91,11 +91,11 @@ abstract class NodeTaskExecutor {
 
 
 
-    private List<String> getArguments(String args) {
+    protected List<String> getArguments(String args) {
         return argumentsParser.parse(args);
     }
 
-    private static String taskToString(String taskName, List<String> arguments) {
+    protected static String taskToString(String taskName, List<String> arguments) {
         List<String> clonedArguments = new ArrayList<String>(arguments);
         for (int i = 0; i < clonedArguments.size(); i++) {
             final String s = clonedArguments.get(i);

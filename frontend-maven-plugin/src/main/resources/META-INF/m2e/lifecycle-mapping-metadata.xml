@@ -32,6 +32,7 @@
                     <goal>rollup</goal>
                     <goal>sass</goal>
                     <goal>webpack</goal>
+                    <goal>node</goal>
                 </goals>
             </pluginExecutionFilter>
             <action>
